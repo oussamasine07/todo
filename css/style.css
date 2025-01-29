@@ -1,3 +1,11 @@
+
+#form-section {
+  opacity: 0;
+  display: none;
+}
+
+
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;

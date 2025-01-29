@@ -20,16 +20,10 @@
             <h1 class="text-[#FB3640] capitalize text-center font-bold text-3xl mt-5 mb-20">todo manager</h1>
 
             <ul class="nav-items pr-3">
-                <li
-                    class="nav-item px-3 py-4 my-2 text-white capitalize font-bold bg-[#2D3F58] cursor-pointer transition-all hover:bg-[#FB3640] flex justify-end items-center rounded-tr-xl rounded-br-xl">
-                    <span>today</span>
+                <li class="nav-item px-3 py-4 my-2 text-white capitalize font-bold bg-[#2D3F58] cursor-pointer transition-all hover:bg-[#FB3640] flex justify-end items-center rounded-tr-xl rounded-br-xl" id="show-all-tasks">
+                    <span>all tasks</span>
                 </li>
-                <li
-                    class="nav-item px-3 py-4 my-2 text-white capitalize font-bold bg-[#2D3F58] cursor-pointer transition-all hover:bg-[#FB3640] flex justify-end items-center rounded-tr-xl rounded-br-xl">
-                    <span>tomorrow</span>
-                </li>
-                <li
-                    class="nav-item px-3 py-4 my-2 text-white capitalize font-bold bg-[#2D3F58] cursor-pointer transition-all hover:bg-[#FB3640] flex justify-end items-center rounded-tr-xl rounded-br-xl">
+                <li class="nav-item px-3 py-4 my-2 text-white capitalize font-bold bg-[#2D3F58] cursor-pointer transition-all hover:bg-[#FB3640] flex justify-end items-center rounded-tr-xl rounded-br-xl" id="create-task">
                     <span>new todo</span>
                 </li>
             </ul>
@@ -45,9 +39,9 @@
                 </div>
             </div>
 
-            <div class="main-wrapper px-4">
-                <div id="list-section">
-                    <div class="main-title  py-10">
+            <div class="main-wrapper relative w-full">
+                <div id="list-section" class="px-4 w-full absolute top-0 left-0">
+                    <div class="main-title py-10">
                         <h1 class="text-2xl text-[#0D1321] font-bold">Today</h1>
                     </div>
         
@@ -266,7 +260,7 @@
                     </div>
                 </div>
 
-                <div id="form-section">
+                <div id="form-section" class="px-4 w-full absolute top-0 left-0 transition-all">
                     <div class="main-title  py-10">
                         <h1 class="text-2xl text-[#0D1321] font-bold">New todo</h1>
                     </div>
@@ -302,7 +296,6 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
