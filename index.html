@@ -7,7 +7,8 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <script src="https://kit.fontawesome.com/30a7946fd8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <!-- <script defer src="./js/app.js"></script> -->
+    <script defer src="./js/dynamic.js"></script>
+    <script defer src="./js/app.js"></script>
     <title>ToDo App </title>
 </head>
 <body>
@@ -44,7 +45,7 @@
                     <h1 class="text-2xl text-[#0D1321] font-bold">Today</h1>
                 </div>
     
-                <div class="flex items-center justify-between py-3">
+                <div class="filter-wrapper flex items-center justify-between py-3">
                     <div class="bulk-delete flex justify-center items-center">
                         <div class="checkbox-form flex justify-center items-center">
                             <input id="delete-all" type="checkbox"class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -64,68 +65,196 @@
                     </div>
                 </div>
 
-                <div class="todo-list-items w-full">
-                    <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
-                        <div class="col-span-8 flex items-center">
-                            <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
-                            <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                <div class="todo-list-wrapper overflow-y-scroll">
+                    <div class="todo-list-items w-full">
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-span-2 flex justify-center items-center">
-                            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-
-                        <div class="col-span-2 flex justify-end items-center">
-                            <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
-                        <div class="col-span-8 flex items-center">
-                            <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
-                            <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-span-2 flex justify-center items-center">
-                            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-
-                        <div class="col-span-2 flex justify-end items-center">
-                            <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
-                        <div class="col-span-8 flex items-center">
-                            <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
-                            <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-span-2 flex justify-center items-center">
-                            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
-
-                        <div class="col-span-2 flex justify-end items-center">
-                            <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <div class="rounded-md bg-white px-4 py-4 my-1.5 grid md:grid-cols-12 md:gap-4">
+                            <div class="col-span-8 flex items-center">
+                                <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+                                <p class="ml-3">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="col-span-2 flex justify-center items-center">
+                                <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
+                            </div>
+    
+                            <div class="col-span-2 flex justify-end items-center">
+                                <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
