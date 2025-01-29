@@ -38,6 +38,34 @@
                 </div>
             </div>
 
+            <div class="main-wrapper px-4">
+                <div class="main-title  py-10">
+                    <h1 class="text-2xl text-[#0D1321] font-bold">Today</h1>
+                </div>
+    
+                <div class="flex items-center justify-between py-3">
+                    <div class="bulk-delete flex justify-center items-center">
+                        <div class="checkbox-form flex justify-center items-center">
+                            <input type="checkbox" id="delete-all">
+                            <label for="delete-all" class="ml-2 capitalize ">select all</label>
+                        </div>
+                        <button class="btn px-6 py-1 rounded-md bg-[#FB3640] text-white capitalize text-sm font-bold ml-3 border border-[#FB3640] cursor-pointer hover:bg-transparent hover:text-[#FB3640] transition-all">delete all</button>
+                    </div>
+
+                    <div class="flex justify-center items-center">
+                        <label for="filters" class="block mb-2 text-sm w-1/2 font-medium text-[#0D1321]">Filter by:</label>
+                        <select id="filters" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choose filter</option>
+                            <option value="US">high priority</option>
+                            <option value="CA">meduim priority</option>
+                            <option value="FR">low proiority</option>
+                        </select>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
 
         </div>
     </main>
