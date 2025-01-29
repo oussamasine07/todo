@@ -14,9 +14,11 @@
 </head>
 
 <body>
-    <main class="w-screen h-screen bg-[#f2f2f2] relative md:pl-72">
-
-        <div class="side-bar w-2xs h-full bg-[#0D1321] absolute top-0 left-0"> <!-- 288px -->
+    <main class="w-screen h-screen bg-[#f2f2f2] relative px-3 md:px-20 md:pl-72 overflow-y-hidden">
+        <button id="btn-menu" class="btn text-white text-4xl bg-[#0D1321] w-16 h-16 rounded-full absolute top-5 left-5">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="side-bar w-full md:w-2xs h-full bg-[#0D1321] absolute top-0 z-100"> <!-- 288px -->
             <h1 class="text-[#FB3640] capitalize text-center font-bold text-3xl mt-5 mb-20">todo manager</h1>
 
             <ul class="nav-items pr-3">
@@ -30,8 +32,8 @@
 
         </div>
 
-        <div class="main ">
-            <div class="counter-wrapper flex justify-center items-center py-4">
+        <div class="main w-full">
+            <div class="counter-wrapper flex justify-end md:justify-center items-center py-4 md:py-4">
                 <div class="current-task text-md text-[#0D1321]">finish UI/UX design</div>
                 <div class="divider w-1 h-6 bg-[#0D1321] mx-4"></div>
                 <div class="counter text-[#FB3640] font-bold">
@@ -40,8 +42,8 @@
             </div>
 
             <div class="main-wrapper relative w-full">
-                <div id="list-section" class="px-4 w-full absolute top-0 left-0">
-                    <div class="main-title py-10">
+                <div id="list-section" class="md:px-4 w-full absolute top-0 left-0">
+                    <div class="main-title pt-15 pb-10 ">
                         <h1 class="text-2xl text-[#0D1321] font-bold">Today</h1>
                     </div>
         
@@ -51,7 +53,10 @@
                                 <input id="delete-all" type="checkbox"class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="delete-all" class="ml-2 capitalize ">select all</label>
                             </div>
-                            <button class="btn px-6 py-1 rounded-md bg-[#FB3640] text-white capitalize text-sm font-bold ml-3 border border-[#FB3640] cursor-pointer hover:bg-transparent hover:text-[#FB3640] transition-all">delete all</button>
+                            <button class="btn px-2 md:px-6 py-1 rounded-md bg-[#FB3640] text-white capitalize text-sm font-bold ml-3 border border-[#FB3640] cursor-pointer hover:bg-transparent hover:text-[#FB3640] transition-all">
+                                <i class="fa-solid fa-trash "></i>
+                                <span class="hidden md:block">delete all</span>
+                            </button>
                         </div>
     
                         <div class="flex justify-center items-center">
@@ -76,7 +81,7 @@
                                     <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">High</span>
                                 </div>
         
-                                <div class="col-span-2 flex justify-end items-center">
+                                <div class="col-span-2 flex justify-end items-center hidden md:block">
                                     <button class="bg-blue-500 border-2 border-blue-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ">
                                         <i class="fa-solid fa-eye"></i>
                                     </button>

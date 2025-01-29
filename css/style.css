@@ -1,3 +1,7 @@
+.side-bar {
+  left: -100%;
+  transition: all .3s ease-in-out;
+}
 
 #form-section {
   opacity: 0;
