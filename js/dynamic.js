@@ -21,6 +21,10 @@ showAllTasksLink.addEventListener("click", () => {
     listSection.style.opacity = "1";
     formSection.style.display = "none";
     formSection.style.opacity = "0";
+    
+    sideBar.classList.remove("left-0")
+    sideBar.classList.add("-left-full")
+
 })
 
 createTaskLink.addEventListener("click", () => {
@@ -28,6 +32,9 @@ createTaskLink.addEventListener("click", () => {
     listSection.style.opacity = "0";
     formSection.style.display = "block";
     formSection.style.opacity = "1";
+    
+    sideBar.classList.remove("left-0")
+    sideBar.classList.add("-left-full")
 })
 
 const sideBarBtn = document.getElementById("btn-menu");
@@ -37,7 +44,7 @@ sideBarBtn.addEventListener("click", ( e ) => toggleSideBar(e))
 const toggleSideBar = (e) => {
     const button = e.target.closest("button"); // Get the closest button element
     if (!button) return;
-    
+
     if (sideBar.classList.contains("-left-full")) {
         sideBarBtn.classList.remove("bg-[#0D1321]")
         sideBarBtn.classList.add("bg-white")
