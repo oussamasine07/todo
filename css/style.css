@@ -1,0 +1,31 @@
+.side-bar {
+  /* left: -100%; */
+  transition: all .3s ease-in-out;
+}
+
+#form-section {
+  opacity: 0;
+  display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(45, 63, 88, .5);
+    border-radius: 8px;
+    transition: all ease-in-out .5s;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0D1321;
+  }
