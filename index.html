@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <script src="https://kit.fontawesome.com/30a7946fd8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <script defer src="./js/dynamic.js"></script>
+    <!-- <script defer src="./js/dynamic.js"></script> -->
     <script defer src="./js/app.js"></script>
     <title>ToDo App </title>
 </head>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="main-wrapper relative w-full min-h-500">
-                <div id="list-section" class="md:px-4 w-full absolute top-0 left-0">
+                <!-- <div id="list-section" class="md:px-4 w-full absolute top-0 left-0">
                     <div class="main-title pt-15 pb-10 ">
                         <h1 class="text-2xl text-[#0D1321] font-bold">Today</h1>
                     </div>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div id="form-section" class="px-4 w-full absolute top-0 left-0 transition-all">
                     <div class="main-title  py-10">
@@ -101,29 +101,34 @@
                     </div>
 
                     <div class="w-full">
-                        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <form id="create-task-form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                             <div class="grid grid-cols-12 gap-4">
                                 <div class="col-span-full md:col-span-4">
-                                    <input class="shadow appearance-none border border-[#D9D9D9] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="task-name" type="text" placeholder="Task name">
+                                    <input class="shadow appearance-none border border-[#D9D9D9] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="task-name" type="text" placeholder="Task name" data-error-id="error-task-name" data-field-name="task name">
+                                    <span class="error text-red-500 text-sm font-bold" id="error-task-name"></span>
                                 </div>
 
                                 <div class="col-span-full md:col-span-4">
-                                    <select id="filters" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2 px-3 ">
+                                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2 px-3" id="task-priority-select">
                                         <option selected>Choose priority</option>
                                         <option value="high">high priority</option>
                                         <option value="meduim">meduim priority</option>
                                         <option value="low">low proiority</option>
+                                        <span class="error text-red-500 text-sm font-bold"></span>
                                     </select>
+                                    <span class="error text-red-500 text-sm font-bold" id="error-task-priority"></span>
                                 </div>
 
                                 <div class="col-span-full md:col-span-4">
-                                    <input class="shadow appearance-none border border-[#D9D9D9] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="task-date" type="text" placeholder="Task date">
+                                    <input class="shadow appearance-none border border-[#D9D9D9] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="task-date" type="date" placeholder="Task date" data-error-id="error-task-date" data-field-name="task date">
+                                    <span class="error text-red-500 text-sm font-bold" id="error-task-date"></span>
                                 </div>
                                 <div class="col-span-full">
-                                    <textarea class="shadow appearance-none border border-[#D9D9D9] rounded w-full h-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="task-date" type="text" placeholder="Task description"></textarea>
+                                    <textarea class="shadow appearance-none border border-[#D9D9D9] rounded w-full h-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none" id="task-description" placeholder="Task description" data-error-id="error-task-description" data-field-name="task description"></textarea>
+                                    <span class="error text-red-500 text-sm font-bold" id="error-task-description"></span>
                                 </div>
                                 <div class="col-span-full flex items-center justify-between">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                                         Create
                                     </button>
                                 </div>
