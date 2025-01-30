@@ -10,6 +10,7 @@ const formSection = document.getElementById("form-section");
 const showAllTasksLink = document.getElementById("show-all-tasks")
 const createTaskLink = document.getElementById("create-task")
 
+
 const height = window.innerHeight - ((counter.offsetHeight + mainTitle.offsetHeight + filterWrapper.offsetHeight + 20) );
 
 todoListWrapper.style.maxHeight = `${height}px`;
@@ -28,3 +29,30 @@ createTaskLink.addEventListener("click", () => {
     formSection.style.display = "block";
     formSection.style.opacity = "1";
 })
+
+const sideBarBtn = document.getElementById("btn-menu");
+const sideBar = document.getElementById("side-bar");
+sideBarBtn.addEventListener("click", ( e ) => toggleSideBar(e))
+
+const toggleSideBar = (e) => {
+    const button = e.target.closest("button"); // Get the closest button element
+    if (!button) return;
+    
+    if (sideBar.classList.contains("-left-full")) {
+        sideBarBtn.classList.remove("bg-[#0D1321]")
+        sideBarBtn.classList.add("bg-white")
+        sideBarBtn.classList.remove("text-white")
+        sideBarBtn.classList.add("text-[#0D1321]")
+        sideBar.classList.remove("-left-full")
+        sideBar.classList.add("left-0")
+    } else {
+        if (sideBar.classList.contains("left-0")) {
+            sideBarBtn.classList.remove("bg-white")
+            sideBarBtn.classList.add("bg-[#0D1321]")
+            sideBarBtn.classList.remove("text-[#0D1321]")
+            sideBarBtn.classList.add("text-white")
+            sideBar.classList.remove("left-0")
+            sideBar.classList.add("-left-full")
+        }
+    }
+}

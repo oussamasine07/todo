@@ -1,5 +1,5 @@
 .side-bar {
-  left: -100%;
+  /* left: -100%; */
   transition: all .3s ease-in-out;
 }
 
@@ -7,8 +7,6 @@
   opacity: 0;
   display: none;
 }
-
-
 
 /* width */
 ::-webkit-scrollbar {
