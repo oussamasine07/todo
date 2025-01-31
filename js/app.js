@@ -17,6 +17,7 @@ const submitTaskBtn = document.getElementById("submit-task-btn");
 let tasks = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
 
 let taskState = "create";
+let taskId = null;
 
 // Validate forms
 const isEmpty = field => field.value == "" ? {
@@ -46,7 +47,8 @@ const isValidText = field => {
 }
 
 const isValidPriority = field  => {
-    const priorities = ["low", "high", "meduim"]
+    
+    const priorities = [ "high", "meduim", "low" ]
     
     return !priorities.includes( field.value ) ? {
         isError: true,
@@ -56,7 +58,6 @@ const isValidPriority = field  => {
 
 }
 
-
 const showError = ( elemId, message ) => document.getElementById( elemId ).innerText = message;
 
 taskNameInput.addEventListener("blur", e => blurInputNameField(e) )
@@ -65,11 +66,11 @@ const blurInputNameField = e  => {
     
     let nameEmpty = isEmpty( taskNameInput );
     let nameValid = isValidText( taskNameInput );
-    
-    if ( nameEmpty.isError ) {
+
+    if ( nameEmpty != null ) {
         showError( e.target.dataset.errorId, nameEmpty.message );
     } else {
-        if ( nameValid.isError ) {
+        if ( nameValid != null ) {
             showError( e.target.dataset.errorId, nameValid.message );
         }
     }
@@ -79,12 +80,12 @@ taskDateInput.addEventListener("blur", e => blurInputDateField(e))
 
 const blurInputDateField = e => {
     let dateEmpty = isEmpty( taskDateInput );
-    let dateValid = isValidText( taskDateInput );
+    let dateValid = isValidDate( taskDateInput );
     
-    if ( dateEmpty.isError ) {
+    if ( dateEmpty != null ) {
         showError( e.target.dataset.errorId, dateEmpty.message );
     } else {
-        if ( dateValid.isError ) {
+        if ( dateValid != null ) {
             showError( e.target.dataset.errorId, dateValid.message );
         }
     }
@@ -96,17 +97,14 @@ const blurAreaDescriptionField = e => {
     
     let descriptionValid = isValidText( taskDescriptionArea );
 
-    if ( descriptionValid.isError ) {
+    if ( descriptionValid != null ) {
         showError( e.target.dataset.errorId, descriptionValid.message );
     }
     
 }
 
-// create new task
-createTaskForm.addEventListener("submit", ( e ) => submitCreateForm(e))
 
-const submitCreateForm = ( e ) => {
-    e.preventDefault();
+const validateAllFields = () => {
     let errors = []
 
     //make the validation 
@@ -124,27 +122,63 @@ const submitCreateForm = ( e ) => {
     if ( dateValid != null ) errors.push(dateValid)
     if ( descriptionValid != null ) errors.push(descriptionValid)
     
+    return errors;
+}
+
+// create new task
+createTaskForm.addEventListener("submit", ( e ) => submitCreateForm(e))
+
+const submitCreateForm = ( e ) => {
+    e.preventDefault();
+
+    let errors = validateAllFields();
+    
     if ( errors.length > 0 ) {
         errors.forEach(err => document.getElementById(err.inputIdError).innerText = err.message);
         return;
     }
-    
-    const newTask = {
-        id: tasks.length > 0 ? tasks[ tasks.length - 1 ].id + 1 : 1,
-        name: taskNameInput.value,
-        priority: taskPrioritySelect.value,
-        date: taskDateInput.value,
-        description: taskDescriptionArea.value,
-        isDone: false
+
+    switch ( taskState ) {
+        case "create":
+            const newTask = {
+                id: tasks.length > 0 ? tasks[ tasks.length - 1 ].id + 1 : 1,
+                name: taskNameInput.value,
+                priority: taskPrioritySelect.value,
+                date: taskDateInput.value,
+                description: taskDescriptionArea.value,
+                isDone: false
+            }
+            
+            tasks.push(newTask);
+        
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        
+            emptyAllFields();
+        
+            makeListElement( newTask )
+            break;
+
+        case "update":
+            const updatedTask = {
+                name: taskNameInput.value,
+                priority: taskPrioritySelect.value,
+                date: taskDateInput.value,
+                description: taskDescriptionArea.value,
+                isDone: false
+            }
+
+            tasks = tasks.map(task => task.id == taskId ? { ...task, ...updatedTask } : task);
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            emptyAllFields();
+            taskState = "create"
+            // update ui
+
+            // show updated task
+
+            break;
     }
-    
-    tasks.push(newTask);
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-
-    emptyAllFields();
-
-    makeListElement( newTask )
 }
 
 const emptyAllFields = () => {
@@ -191,6 +225,7 @@ showTasksList( tasks )
 // UPDATE TASK
 const editTask = id => {
 
+    taskId = id;
     taskState = "update";
 
     // find the task in tasks list
