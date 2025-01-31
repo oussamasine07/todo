@@ -200,6 +200,7 @@ const makeListElement = task => {
     const div = document.createElement("div");
     div.className = "rounded-md bg-white px-4 py-4 my-1.5 grid grid-cols-12 md:gap-4";
     div.id = `task-${ task.id }`;
+    
     div.innerHTML = `
         <div class="col-span-6 md:col-span-8 flex items-center">
             <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
@@ -207,7 +208,9 @@ const makeListElement = task => {
         </div>
 
         <div class="col-span-3 md:col-span-2 flex justify-center items-center">
-            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]" id='task-proirity-${ task.id }'>${ task.priority }</span>
+            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium ${
+                task.priority ? 'text-[#FB3640] ring-1 ring-inset ring-[#FB3640]' : task.priority == 'meduim' ? 'text-yellow-500 ring-1 ring-inset ring-yellow-500' : 'text-blue-500 ring-1 ring-inset ring-blue-500'
+            } " id='task-proirity-${ task.id }'>${ task.priority }</span>
         </div>
 
         <div class="col-span-3 md:col-span-2 flex justify-end items-center" >
