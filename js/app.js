@@ -171,10 +171,16 @@ const submitCreateForm = ( e ) => {
 
             localStorage.setItem("tasks", JSON.stringify(tasks));
             emptyAllFields();
-            taskState = "create"
-            // update ui
+            taskState = "create";
 
-            // show updated task
+            // update ui
+            document.getElementById(`task-name-${ taskId }`).innerText = updatedTask.name;
+            document.getElementById(`task-proirity-${ taskId }`).innerText = updatedTask.priority;
+
+            listSection.style.display = "block";
+            listSection.style.opacity = "1";
+            formSection.style.display = "none";
+            formSection.style.opacity = "0";
 
             break;
     }
@@ -197,11 +203,11 @@ const makeListElement = task => {
     div.innerHTML = `
         <div class="col-span-6 md:col-span-8 flex items-center">
             <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
-            <a href="#" class="ml-3">${ task.name }</a>
+            <a href="#" class="ml-3" id='task-name-${ task.id }'>${ task.name }</a>
         </div>
 
         <div class="col-span-3 md:col-span-2 flex justify-center items-center">
-            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]">${ task.priority }</span>
+            <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]" id='task-proirity-${ task.id }'>${ task.priority }</span>
         </div>
 
         <div class="col-span-3 md:col-span-2 flex justify-end items-center" >
