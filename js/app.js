@@ -13,13 +13,13 @@ const taskDescriptionErrorSpan = document.getElementById("error-task-description
 let tasks = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
 
 // Validate forms
-const isEmpty = ( field ) => field.value == "" ? {
+const isEmpty = field => field.value == "" ? {
         isError: true,
         message: `${field.dataset.fieldName} field is required`,
         inputIdError: field.dataset.errorId
 } : null;
 
-const isValidDate = ( field ) => {
+const isValidDate = field => {
     const regex = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/
 
     return !regex.test( field.value ) ? {
@@ -29,7 +29,7 @@ const isValidDate = ( field ) => {
     } : null;
 }
 
-const isValidText = ( field ) => {
+const isValidText = field => {
     const regex = /^[a-zA-Z\s]+$/;
 
     return !regex.test( field.value ) ? {
@@ -121,9 +121,7 @@ const submitCreateForm = ( e ) => {
     if ( descriptionValid != null ) errors.push(descriptionValid)
     
     if ( errors.length > 0 ) {
-        errors.forEach(err => {
-            document.getElementById(err.inputIdError).innerText = err.message
-        });
+        errors.forEach(err => document.getElementById(err.inputIdError).innerText = err.message);
         return;
     }
     
