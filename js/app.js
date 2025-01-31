@@ -173,9 +173,14 @@ const submitCreateForm = ( e ) => {
             emptyAllFields();
             taskState = "create";
 
+
+            const spanClass = updatedTask.priority == "high" ? "inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-[#FB3640] ring-1 ring-inset ring-[#FB3640]" : updatedTask.priority == "meduim" ? "inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-yellow-300 ring-1 ring-inset ring-yellow-500" : "inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-blue-500 ring-1 ring-inset ring-blue-500";
+
             // update ui
             document.getElementById(`task-name-${ taskId }`).innerText = updatedTask.name;
             document.getElementById(`task-proirity-${ taskId }`).innerText = updatedTask.priority;
+            document.getElementById(`task-proirity-${ taskId }`).className = spanClass;
+
 
             listSection.style.display = "block";
             listSection.style.opacity = "1";
@@ -209,7 +214,7 @@ const makeListElement = task => {
 
         <div class="col-span-3 md:col-span-2 flex justify-center items-center">
             <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium ${
-                task.priority ? 'text-[#FB3640] ring-1 ring-inset ring-[#FB3640]' : task.priority == 'meduim' ? 'text-yellow-500 ring-1 ring-inset ring-yellow-500' : 'text-blue-500 ring-1 ring-inset ring-blue-500'
+                task.priority == "high" ? 'text-[#FB3640] ring-1 ring-inset ring-[#FB3640]' : task.priority == 'meduim' ? 'text-yellow-300 ring-1 ring-inset ring-yellow-500' : 'text-blue-500 ring-1 ring-inset ring-blue-500'
             } " id='task-proirity-${ task.id }'>${ task.priority }</span>
         </div>
 
