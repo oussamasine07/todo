@@ -39,6 +39,18 @@ const isValidText = ( field ) => {
     } : null;
 }
 
+const isValidPriority = field  => {
+    const priorities = ["low", "high", "meduim"]
+    
+    return !priorities.includes( field.value ) ? {
+        isError: true,
+        message: `invalid priority`,
+        inputIdError: field.dataset.errorId
+    } : null;
+
+}
+
+
 const showError = ( elemId, message ) => document.getElementById( elemId ).innerText = message;
 
 taskNameInput.addEventListener("blur", e => blurInputNameField(e) )
@@ -94,12 +106,16 @@ const submitCreateForm = ( e ) => {
     //make the validation 
     let nameEmpty = isEmpty( taskNameInput );
     let nameValid = isValidText( taskNameInput );
+    let validPriority = isValidPriority( taskPrioritySelect )
     let dateEmpty = isEmpty( taskDateInput );
     let dateValid = isValidDate( taskDateInput );
     let descriptionValid = isValidText( taskDescriptionArea );
 
+    console.log( validPriority )
+
     if ( nameEmpty != null ) errors.push(nameEmpty)
     if ( nameValid != null ) errors.push(nameValid)
+    if ( validPriority != null ) errors.push( validPriority ) 
     if ( dateEmpty != null ) errors.push(dateEmpty)
     if ( dateValid != null ) errors.push(dateValid)
     if ( descriptionValid != null ) errors.push(descriptionValid)
