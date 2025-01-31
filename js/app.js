@@ -12,7 +12,11 @@ const taskDescriptionErrorSpan = document.getElementById("error-task-description
 
 const tasksWrapper = document.getElementById("list-tasks")
 
+const submitTaskBtn = document.getElementById("submit-task-btn");
+
 let tasks = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
+
+let taskState = "create";
 
 // Validate forms
 const isEmpty = field => field.value == "" ? {
@@ -152,6 +156,7 @@ const emptyAllFields = () => {
 
 // READ ALL TASKS
 const makeListElement = task => {
+    
     const div = document.createElement("div");
     div.className = "rounded-md bg-white px-4 py-4 my-1.5 grid grid-cols-12 md:gap-4";
     div.id = `task-${ task.id }`;
@@ -166,7 +171,7 @@ const makeListElement = task => {
         </div>
 
         <div class="col-span-3 md:col-span-2 flex justify-end items-center" >
-            <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm px-2 md:px-4 rounded-md " onclick='editTask(${task})'>
+            <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm px-2 md:px-4 rounded-md " onclick='editTask(${ task.id })'>
                 <i class="fa-regular fa-pen-to-square"></i>
             </button>
             <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md" onclick='deleteTask(${ task })'>
@@ -182,3 +187,31 @@ const makeListElement = task => {
 const showTasksList = tasksList => tasksList.forEach(task => makeListElement( task ) )
 
 showTasksList( tasks )
+
+// UPDATE TASK
+const editTask = id => {
+
+    taskState = "update";
+
+    // find the task in tasks list
+    const {
+        name,
+        priority,
+        date,
+        description
+    } = tasks.find( task => task.id == id);
+
+    listSection.style.display = "none";
+    listSection.style.opacity = "0";
+    formSection.style.display = "block";
+    formSection.style.opacity = "1";
+
+    // show show the input field
+    taskNameInput.value = name;
+    taskPrioritySelect.value = priority;
+    taskDateInput.value = date;
+    taskDescriptionArea.value = description;
+
+    submitTaskBtn.innerText = taskState;
+
+}
