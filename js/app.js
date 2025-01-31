@@ -113,8 +113,6 @@ const submitCreateForm = ( e ) => {
     let dateValid = isValidDate( taskDateInput );
     let descriptionValid = isValidText( taskDescriptionArea );
 
-    console.log( validPriority )
-
     if ( nameEmpty != null ) errors.push(nameEmpty)
     if ( nameValid != null ) errors.push(nameValid)
     if ( validPriority != null ) errors.push( validPriority ) 
@@ -142,7 +140,7 @@ const submitCreateForm = ( e ) => {
 
     emptyAllFields();
 
-
+    makeListElement( newTask )
 }
 
 const emptyAllFields = () => {
@@ -155,7 +153,7 @@ const emptyAllFields = () => {
 // READ ALL TASKS
 const makeListElement = task => {
     const div = document.createElement("div");
-    className = "rounded-md bg-white px-4 py-4 my-1.5 grid grid-cols-12 md:gap-4";
+    div.className = "rounded-md bg-white px-4 py-4 my-1.5 grid grid-cols-12 md:gap-4";
     div.id = `task-${ task.id }`;
     div.innerHTML = `
         <div class="col-span-6 md:col-span-8 flex items-center">
@@ -181,8 +179,6 @@ const makeListElement = task => {
 
 }
 
-const showTasksList = ( tasksList ) => {
-    tasksList.forEach(task => makeListElement( task ) )
-}
+const showTasksList = tasksList => tasksList.forEach(task => makeListElement( task ) )
 
 showTasksList( tasks )
