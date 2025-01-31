@@ -1,3 +1,4 @@
+
 // GET DOM ELEMENTS
 const createTaskForm = document.getElementById("create-task-form")
 const taskNameInput = document.getElementById("task-name")
@@ -11,6 +12,12 @@ const taskNameDateSpan = document.getElementById("error-task-date")
 const taskDescriptionErrorSpan = document.getElementById("error-task-description")
 
 const tasksWrapper = document.getElementById("list-tasks")
+
+const deleteBulk = document.getElementById("delete-bulk");
+const deleteAllCheckbox = document.getElementById("delete-all");
+
+
+
 
 const submitTaskBtn = document.getElementById("submit-task-btn");
 
@@ -208,7 +215,7 @@ const makeListElement = task => {
     
     div.innerHTML = `
         <div class="col-span-6 md:col-span-8 flex items-center">
-            <input type="checkbox" id="list-item-1" class="bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
+            <input data-id='${ task.id }' type="checkbox" id="list-item-2" class="task-checkbox bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
             <a href="#" class="ml-3" id='task-name-${ task.id }'>${ task.name }</a>
         </div>
 
@@ -222,7 +229,7 @@ const makeListElement = task => {
             <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm px-2 md:px-4 rounded-md " onclick='editTask(${ task.id })'>
                 <i class="fa-regular fa-pen-to-square"></i>
             </button>
-            <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md" onclick='deleteTask(${ task })'>
+            <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md" onclick='deleteTask(${ task.id })'>
                 <i class="fa-solid fa-trash"></i>
             </button>
         </div>
@@ -263,4 +270,34 @@ const editTask = id => {
 
     submitTaskBtn.innerText = taskState;
 
+}
+
+// DELETE TASK
+const deleteTask = id => {
+    taskId = id;
+    tasks = tasks.filter(task => task.id != taskId);
+    localStorage.setItem("tasks", JSON.stringify( tasks ));
+
+    document.getElementById(`task-${ id }`).remove();
+    
+}
+
+deleteBulk.addEventListener("click", () => deleteManyTasks())
+
+const deleteManyTasks = () => {
+    const taskCheckboxes = document.querySelectorAll(".task-checkbox");
+    
+    taskCheckboxes.forEach(task => {
+        if ( task.checked ) {
+            const id = parseInt(task.dataset.id);
+            deleteTask( id );
+        }
+    });
+}
+
+deleteAllCheckbox.addEventListener("click", e => selectAllTasks( e ));
+
+const selectAllTasks = e => {
+    const taskCheckboxes = document.querySelectorAll(".task-checkbox");
+    taskCheckboxes.forEach(task => task.checked = e.target.checked ? true : false );
 }
