@@ -3,10 +3,10 @@
   transition: all .3s ease-in-out;
 }
 
-#form-section {
+/* #form-section {
   opacity: 0;
   display: none;
-}
+} */
 
 /* width */
 ::-webkit-scrollbar {
