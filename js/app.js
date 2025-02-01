@@ -229,7 +229,7 @@ const makeListElement = task => {
             <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm px-2 md:px-4 rounded-md cursor-pointer" onclick='editTask(${ task.id })'>
                 <i class="fa-regular fa-pen-to-square"></i>
             </button>
-            <button class=" border-2 transition ease-in-out delay-150 text-green-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ${task.isDone ? 'cursor-not-allowed bg-green-800 border-green-800' : 'cursor-pointer bg-green-500 border-green-500 hover:bg-transparent hover:text-green-500'}" onclick='setIsDone(event, ${ task.id })' ${task.isDone ? 'disabled' : ''}>
+            <button class="border-2 transition ease-in-out delay-150 text-green-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md ${task.isDone ? 'cursor-not-allowed bg-green-800 border-green-800' : 'cursor-pointer bg-green-500 border-green-500 hover:bg-transparent hover:text-green-500'}" onclick='setIsDone(event, ${ task.id })' ${task.isDone ? 'disabled' : ''}>
                 <i class="fa-solid fa-check-double"></i>
             </button>
             <button class="bg-red-500 border-2 border-red-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-red-500 text-blue-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md cursor-pointer" onclick='deleteTask(${ task.id })'>
@@ -302,7 +302,7 @@ const setIsDone = (e, id) => {
     tasks = tasks.map(task => task.id == id ? { ...task, isDone: true } : task)
     localStorage.setItem("tasks", JSON.stringify(tasks));
     // update the ui
-    console.log(e.target)
+    e.target.className = "border-2 transition ease-in-out delay-150 text-green-950 font-bold text-sm ml-3 px-2 md:px-4 rounded-md cursor-not-allowed bg-green-800 border-green-800"
 }
 
 deleteAllCheckbox.addEventListener("click", e => selectAllTasks( e ));
