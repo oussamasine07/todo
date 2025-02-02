@@ -19,6 +19,7 @@ const deleteAllCheckbox = document.getElementById("delete-all");
 const timerWrapper = document.getElementById("timer-wrapper")
 const timerTaskName = document.getElementById("timer-task-name");
 const setDefaultTimer = document.getElementById("set-default-timer")
+const setCustomPomodoroBtn = document.getElementById("set-custom-pomodoro")
 
 const currentTaskName = document.getElementById("current-task-name")
 const navTaskState = document.getElementById("nav-task-state")
@@ -440,6 +441,14 @@ const countBreak = () => {
         navTaskState.innerText = current.state;
         localStorage.setItem("currentTask", JSON.stringify(current))
     }
+}
+
+setCustomPomodoroBtn.addEventListener("click", () => setCustomPomodoro())
+
+const setCustomPomodoro = () => {
+    const pomoDuration = parseInt(document.getElementById("pomo-custom-minites").value);
+    
+    setPomoTime(pomoDuration)
 }
 
 
