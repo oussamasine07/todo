@@ -212,14 +212,36 @@ const makeListElement = task => {
     const div = document.createElement("div");
     div.className = "rounded-md bg-white px-4 py-4 my-1.5 grid grid-cols-12 md:gap-4";
     div.id = `task-${ task.id }`;
+
+    
+
+    
     
     div.innerHTML = `
-        <div class="col-span-6 md:col-span-8 flex items-center">
+        <div class="col-span-6 md:col-span-4 flex items-center">
             <input data-id='${ task.id }' type="checkbox" id="list-item-2" class="task-checkbox bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
             <a href="#" class="ml-3" id='task-name-${ task.id }'>${ task.name }</a>
         </div>
 
-        <div class="col-span-3 md:col-span-2 flex justify-center items-center">
+        <div class="col-span-3 md:col-span-3 border flex justify-center items-center">
+            <div id="pomo-form-${ task.id }" class="flex items-center justify-between w-4/5">
+                <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer" data-pomo-form="pomo-form-${ task.id }" onclick="getCustomPomo(event)">
+                    custom <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer mx-3">
+                    default 25 <i class="fa-solid fa-stopwatch"></i>
+                </button>
+            </div>
+            
+            <div class="flex justify-center items-center">
+                <select id="break-mins" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="short">short</option>
+                    <option value="long">long</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-span-3 md:col-span-1 flex justify-center items-center">
             <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium ${
                 task.priority == "high" ? 'text-[#FB3640] ring-1 ring-inset ring-[#FB3640]' : task.priority == 'meduim' ? 'text-yellow-300 ring-1 ring-inset ring-yellow-500' : 'text-blue-500 ring-1 ring-inset ring-blue-500'
             } " id='task-proirity-${ task.id }'>${ task.priority }</span>
@@ -310,4 +332,36 @@ deleteAllCheckbox.addEventListener("click", e => selectAllTasks( e ));
 const selectAllTasks = e => {
     const taskCheckboxes = document.querySelectorAll(".task-checkbox");
     taskCheckboxes.forEach(task => task.checked = e.target.checked ? true : false );
+}
+
+// POMODORO
+const getCustomPomo = e => {
+    const elemId = e.target.dataset.pomoForm
+    const pomoForm = document.getElementById(`${ elemId }`)
+    const id = elemId.split("-")[2]
+
+    pomoForm.innerHTML = `
+        <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer" data-pomo-form="pomo-form-${ id }" onclick="cancelCustomPomo(event)">
+            Cancel 
+        </button>
+        <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer">
+            Set 
+        </button>
+        <input type="text" class="w-1/3 border border-[#d9d9d9] text-sm py-1 px-2 rounded-md" id="pomo-minites-${id}" placeholder="how long" />
+    `
+}
+
+const cancelCustomPomo = e => {
+    const elemId = e.target.dataset.pomoForm
+    const pomoForm = document.getElementById(`${ elemId }`)
+    const id = elemId.split("-")[2]
+
+    pomoForm.innerHTML = `
+        <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer" data-pomo-form="pomo-form-${ id }" onclick="getCustomPomo(event)">
+            custom <i class="fa-solid fa-pen"></i>
+        </button>
+        <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer mx-3">
+            default 25 <i class="fa-solid fa-stopwatch"></i>
+        </button>
+    `
 }
