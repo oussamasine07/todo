@@ -34,10 +34,14 @@
 
         <div class="main w-full">
             <div class="counter-wrapper relative flex justify-end md:justify-center items-center py-4 md:py-4">
-                <div class="current-task text-md text-[#0D1321]">finish UI/UX design</div>
+                <div class="current-task text-md text-[#0D1321]">
+                    <strong>Current Task:</strong> <span id="current-task-name"></span>
+                </div>
+                
                 <div class="divider w-1 h-6 bg-[#0D1321] mx-4"></div>
+
                 <div class="counter text-[#FB3640] font-bold">
-                    <span id="nav-timer">00:00</span>
+                    <span id="nav-timer">00:00</span> <span id="nav-task-state" class="capitalize"></span>
                 </div>
                 <!-- <button class="ml-3 border w-8 h-8 flex justify-center items-center bg-gray-300 rounded-full cursor-pointer">
                     <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -75,8 +79,8 @@
 
                         <div class="col-span-1">
                             <select id="break-mins" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="short">short</option>
-                                <option value="long">long</option>
+                                <option value="5">short</option>
+                                <option value="15">long</option>
                             </select>
                         </div>
                     </div>

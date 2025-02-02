@@ -20,6 +20,11 @@ const timerWrapper = document.getElementById("timer-wrapper")
 const timerTaskName = document.getElementById("timer-task-name");
 const setDefaultTimer = document.getElementById("set-default-timer")
 
+const currentTaskName = document.getElementById("current-task-name")
+const navTaskState = document.getElementById("nav-task-state")
+
+currentTaskName.innerText = localStorage.getItem("currentTask") ? JSON.parse(localStorage.getItem("currentTask")).task.name : "No Task Selected";
+navTaskState.innerText = localStorage.getItem("currentTask") ? JSON.parse(localStorage.getItem("currentTask")).state : "";
 
 
 
@@ -157,7 +162,8 @@ const submitCreateForm = ( e ) => {
                 priority: taskPrioritySelect.value,
                 date: taskDateInput.value,
                 description: taskDescriptionArea.value,
-                isDone: false
+                isDone: false,
+                cycleCounts: 0
             }
             
             tasks.push(newTask);
@@ -335,23 +341,42 @@ const selectAllTasks = e => {
 }
 
 // POMODORO
+let currentTask = null;
 const showPomodoro = e => {
     const id = parseInt( e.target.dataset.taskId );
-    const foundTask = tasks.find(task => task.id == id);
-    timerTaskName.innerText = foundTask.name;
+    currentTask = tasks.find(task => task.id == id);
+    timerTaskName.innerText = currentTask.name;
     // show time setter
     timerWrapper.classList.remove("hidden")
 }
 
 let second = 5;
-let minites; 
+let pomodoroMinites; 
+let pomodoroRemider;
+let breakMinites; 
+let breakReminder;
 let setPomodoroTimer;
+let setBreakTimer;
 
-setDefaultTimer.addEventListener("click", () => setPomoTime(25))
+setDefaultTimer.addEventListener("click", () => setPomoTime(5))
 
 const setPomoTime = pomoDuration => {
-    minites = pomoDuration; 
+    pomodoroMinites = pomoDuration; 
+    pomodoroRemider = pomoDuration; 
+    breakMinites = parseInt(document.getElementById("break-mins").value)
+    breakReminder = parseInt(document.getElementById("break-mins").value)
+    
     setPomodoroTimer = setInterval(countPomodoro, 1000)
+
+    const current = {
+        task: currentTask,
+        state: "doing"
+    }
+
+    currentTaskName.innerText = current.task.name;
+    navTaskState.innerText = current.state;
+
+    localStorage.setItem("currentTask", JSON.stringify(current))
 
 }
 
@@ -359,17 +384,57 @@ const countPomodoro = () => {
     second--;
     if (second <= 0) {
         second = 5;
-        minites--;
+        pomodoroMinites--;
     } 
     
-    document.getElementById("nav-timer").innerText = `${String(minites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
-    document.getElementById("box-timer").innerText = `${String(minites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
+    document.getElementById("nav-timer").innerText = `${String(pomodoroMinites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
+    document.getElementById("box-timer").innerText = `${String(pomodoroMinites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
     
-    if (minites === 0 && second === 1) {
+    if (pomodoroMinites === 0 && second === 1) {
+        
         clearInterval(setPomodoroTimer)
-        console.log("time out")
+        pomodoroMinites = pomodoroRemider
+        setBreakTimer = setInterval(countBreak, 1000)
+
+        const current = {
+            task: currentTask,
+            state: "break"
+        }
+
+        currentTaskName.innerText = current.task.name;
+        navTaskState.innerText = current.state;
+    
+        localStorage.setItem("currentTask", JSON.stringify(current))
+
+        tasks = tasks.map(task => task.id == current.task.id ? { ...task, cycleCounts: task.cycleCounts + 1 } : task)
+        console.log(tasks)
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     }
     
+}
+
+const countBreak = () => {
+    second--;
+    if (second <= 0) {
+        second = 5;
+        breakMinites--;
+    } 
+    
+    console.log(`${String(breakMinites).padStart(2, '0')}:${String(second).padStart(2, '0')}`)
+    
+    if (breakMinites === 0 && second === 1) {
+        clearInterval(setBreakTimer)
+        breakMinites = breakReminder
+        setPomodoroTimer = setInterval(countPomodoro, 1000)
+        const current = {
+            task: currentTask,
+            state: "doing"
+        }
+
+        currentTaskName.innerText = current.task.name;
+        navTaskState.innerText = current.state;
+        localStorage.setItem("currentTask", JSON.stringify(current))
+    }
 }
 
 
