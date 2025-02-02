@@ -228,24 +228,26 @@ const makeListElement = task => {
     div.id = `task-${ task.id }`;
     
     div.innerHTML = `
-        <div class="col-span-6 md:col-span-4 flex items-center">
+        <div class="col-span-3 md:col-span-5 flex items-center">
             <input data-id='${ task.id }' type="checkbox" id="list-item-2" class="task-checkbox bg-[#D9D9D9] border text-gray-900 text-sm rounded-lg block w-4 h-4 py-1 px-2 cursor-pointer">
             <a href="#" class="ml-3" id='task-name-${ task.id }'>${ task.name }</a>
         </div>
 
-        <div class="col-span-3 md:col-span-3 border flex justify-center items-center">  
+        <div class="col-span-3 md:col-span-3 flex justify-center items-center">  
             <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer mx-3" data-task-id='${ task.id }' onclick="showPomodoro(event)">
-                Set Pomodoro 25 <i class="fa-solid fa-stopwatch"></i>
+                Set Pomodoro <i class="fa-solid fa-stopwatch"></i>
             </button>
+
+            <span class="inline-flex items-center rounded-md bg-slate-700 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-slate-700" id='task-proirity-${ task.id }'>${ task.cycleCounts } Cycles</span>
         </div>
 
-        <div class="col-span-3 md:col-span-1 flex justify-center items-center">
+        <div class="col-span-3 md:col-span-2 flex justify-center items-center">
             <span class="inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium ${
                 task.priority == "high" ? 'text-[#FB3640] ring-1 ring-inset ring-[#FB3640]' : task.priority == 'meduim' ? 'text-yellow-300 ring-1 ring-inset ring-yellow-500' : 'text-blue-500 ring-1 ring-inset ring-blue-500'
             } " id='task-proirity-${ task.id }'>${ task.priority }</span>
         </div>
 
-        <div class="col-span-3 md:col-span-2 flex justify-end items-center" >
+        <div class="col-span-3 md:col-span-2 border flex justify-end items-center" >
             <button class="bg-yellow-500 border-2 border-yellow-500 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-blue-950 font-bold text-sm px-2 md:px-4 rounded-md cursor-pointer" onclick='editTask(${ task.id })'>
                 <i class="fa-regular fa-pen-to-square"></i>
             </button>
