@@ -26,6 +26,7 @@ const navTaskState = document.getElementById("nav-task-state")
 currentTaskName.innerText = localStorage.getItem("currentTask") ? JSON.parse(localStorage.getItem("currentTask")).task.name : "No Task Selected";
 navTaskState.innerText = localStorage.getItem("currentTask") ? JSON.parse(localStorage.getItem("currentTask")).state : "";
 
+const closeTimerBox = document.getElementById("close-timer-box")
 
 
 const submitTaskBtn = document.getElementById("submit-task-btn");
@@ -349,6 +350,10 @@ const showPomodoro = e => {
     // show time setter
     timerWrapper.classList.remove("hidden")
 }
+
+closeTimerBox.addEventListener("click", () => closePomodorBox())
+
+const closePomodorBox = () => timerWrapper.classList.add("hidden")
 
 let second = 5;
 let pomodoroMinites; 
