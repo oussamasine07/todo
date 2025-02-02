@@ -18,6 +18,7 @@ const deleteAllCheckbox = document.getElementById("delete-all");
 
 const timerWrapper = document.getElementById("timer-wrapper")
 const timerTaskName = document.getElementById("timer-task-name");
+const setDefaultTimer = document.getElementById("set-default-timer")
 
 
 
@@ -342,8 +343,33 @@ const showPomodoro = e => {
     timerWrapper.classList.remove("hidden")
 }
 
-const setPomoTime = time => {
+let second = 5;
+let minites; 
+let setPomodoroTimer;
 
+setDefaultTimer.addEventListener("click", () => setPomoTime(25))
+
+const setPomoTime = pomoDuration => {
+    minites = pomoDuration; 
+    setPomodoroTimer = setInterval(countPomodoro, 1000)
+
+}
+
+const countPomodoro = () => {
+    second--;
+    if (second <= 0) {
+        second = 5;
+        minites--;
+    } 
+    
+    document.getElementById("nav-timer").innerText = `${String(minites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
+    document.getElementById("box-timer").innerText = `${String(minites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
+    
+    if (minites === 0 && second === 1) {
+        clearInterval(setPomodoroTimer)
+        console.log("time out")
+    }
+    
 }
 
 
