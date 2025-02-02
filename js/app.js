@@ -27,7 +27,7 @@ const navTaskState = document.getElementById("nav-task-state")
 currentTaskName.innerText = localStorage.getItem("currentTask") ? JSON.parse(localStorage.getItem("currentTask")).task.name : "No Task Selected";
 navTaskState.innerText = localStorage.getItem("currentTask") ? JSON.parse(localStorage.getItem("currentTask")).state : "";
 
-const closeTimerBox = document.getElementById("close-timer-box")
+
 
 
 const submitTaskBtn = document.getElementById("submit-task-btn");
@@ -238,7 +238,7 @@ const makeListElement = task => {
                 Set Pomodoro <i class="fa-solid fa-stopwatch"></i>
             </button>
 
-            <span class="inline-flex items-center rounded-md bg-slate-700 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-slate-700" id='task-proirity-${ task.id }'>${ task.cycleCounts } Cycles</span>
+            <span class="inline-flex items-center rounded-md bg-slate-700 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-slate-700" id='task-cycles-${ task.id }'>${ task.cycleCounts } Cycles</span>
         </div>
 
         <div class="col-span-1 md:col-span-2 flex justify-center items-center">
@@ -344,6 +344,8 @@ const showPomodoro = e => {
     timerWrapper.classList.remove("hidden")
 }
 
+const closeTimerBox = document.getElementById("close-timer-box")
+
 closeTimerBox.addEventListener("click", () => closePomodorBox())
 
 const closePomodorBox = () => timerWrapper.classList.add("hidden")
@@ -355,6 +357,12 @@ let breakMinites;
 let breakReminder;
 let setPomodoroTimer;
 let setBreakTimer;
+
+const setCustomPomodoro = () => {
+    const pomoDuration = parseInt(document.getElementById("pomo-custom-minites").value);
+    
+    setPomoTime(pomoDuration)
+}
 
 const setPomoTime = pomoDuration => {
     pomodoroMinites = pomoDuration; 
@@ -411,8 +419,8 @@ const countPomodoro = () => {
         localStorage.setItem("currentTask", JSON.stringify(current))
 
         tasks = tasks.map(task => task.id == current.task.id ? { ...task, cycleCounts: task.cycleCounts + 1 } : task)
-        console.log(tasks)
         localStorage.setItem("tasks", JSON.stringify(tasks))
+        document.getElementById(`task-cycles-${ currentTask.id }`).innerText = `${currentTask.cycleCounts + 1} Cycles`
     }
     
 }
@@ -423,8 +431,9 @@ const countBreak = () => {
         second = 5;
         breakMinites--;
     } 
-    
-    console.log(`${String(breakMinites).padStart(2, '0')}:${String(second).padStart(2, '0')}`)
+
+    document.getElementById("nav-timer").innerText = `${String(breakMinites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
+    document.getElementById("box-timer").innerText = `${String(breakMinites).padStart(2, '0')}:${String(second).padStart(2, '0')}`
     
     if (breakMinites === 0 && second === 1) {
         clearInterval(setBreakTimer)
@@ -441,14 +450,7 @@ const countBreak = () => {
     }
 }
 
-const setCustomPomodoro = () => {
-    const pomoDuration = parseInt(document.getElementById("pomo-custom-minites").value);
-    
-    setPomoTime(pomoDuration)
-}
-
 const navBtnTimer = document.getElementById("nav-btn-timer")
-
 navBtnTimer.addEventListener("click", () => timerWrapper.classList.remove("hidden"))
 
 
@@ -499,7 +501,7 @@ const clearPomodoro = () => {
     customPomodoroBtns.innerHTML = `
         <div class="col-span-3 grid grid-cols-3 gap-2">
             <div class="col-span-full">
-                <button id="set-default-timer" class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full" onclick="setPomoTime(5)">
+                <button id="set-default-timer" class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full" onclick="setPomoTime(2)">
                     Default 25 mins <i class="fa-solid fa-stopwatch"></i>
                 </button>
             </div>
@@ -528,104 +530,3 @@ const clearPomodoro = () => {
         </div>
     `;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const getCustomPomo = e => {
-//     const elemId = e.target.dataset.pomoForm
-//     const pomoForm = document.getElementById(`${ elemId }`)
-//     const id = elemId.split("-")[2]
-
-//     pomoForm.innerHTML = `
-//         <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer" data-pomo-form="pomo-form-${ id }" onclick="cancelCustomPomo(event)">
-//             Cancel 
-//         </button>
-//         <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer">
-//             Set 
-//         </button>
-//         <input type="text" class="w-1/3 border border-[#d9d9d9] text-sm py-1 px-2 rounded-md" id="pomo-minites-${id}" placeholder="how long" />
-//     `
-// }
-
-// const cancelCustomPomo = e => {
-//     const elemId = e.target.dataset.pomoForm
-//     const pomoForm = document.getElementById(`${ elemId }`)
-//     const id = elemId.split("-")[2]
-
-//     pomoForm.innerHTML = `
-//         <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer" data-pomo-form="pomo-form-${ id }" onclick="getCustomPomo(event)">
-//             custom <i class="fa-solid fa-pen"></i>
-//         </button>
-//         <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer mx-3">
-//             default 25 <i class="fa-solid fa-stopwatch"></i>
-//         </button>
-//     `
-// }
