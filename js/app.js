@@ -18,7 +18,7 @@ const deleteAllCheckbox = document.getElementById("delete-all");
 
 const timerWrapper = document.getElementById("timer-wrapper")
 const timerTaskName = document.getElementById("timer-task-name");
-const setDefaultTimer = document.getElementById("set-default-timer")
+
 const setCustomPomodoroBtn = document.getElementById("set-custom-pomodoro")
 
 const currentTaskName = document.getElementById("current-task-name")
@@ -31,6 +31,8 @@ const closeTimerBox = document.getElementById("close-timer-box")
 
 
 const submitTaskBtn = document.getElementById("submit-task-btn");
+
+const customPomodoroBtns = document.getElementById("custom-pomodoro-btns");
 
 let tasks = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
 
@@ -224,18 +226,6 @@ const makeListElement = task => {
     const div = document.createElement("div");
     div.className = "rounded-md bg-white px-4 py-4 my-1.5 grid grid-cols-12 md:gap-4";
     div.id = `task-${ task.id }`;
-
-    // <div class="flex justify-center items-center">
-    //     <select id="break-mins" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    //         <option value="short">short</option>
-    //         <option value="long">long</option>
-    //     </select>
-    // </div>
-
-    // <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer" data-pomo-form="pomo-form-${ task.id }" onclick="getCustomPomo(event)">
-    //     custom <i class="fa-solid fa-pen"></i>
-    // </button>
-    
     
     div.innerHTML = `
         <div class="col-span-6 md:col-span-4 flex items-center">
@@ -364,8 +354,6 @@ let breakReminder;
 let setPomodoroTimer;
 let setBreakTimer;
 
-setDefaultTimer.addEventListener("click", () => setPomoTime(5))
-
 const setPomoTime = pomoDuration => {
     pomodoroMinites = pomoDuration; 
     pomodoroRemider = pomoDuration; 
@@ -383,6 +371,14 @@ const setPomoTime = pomoDuration => {
     navTaskState.innerText = current.state;
 
     localStorage.setItem("currentTask", JSON.stringify(current))
+
+    customPomodoroBtns.innerHTML = `
+        <div class="col-span-full">
+            <button onclick="clearPomodoro()" class="bg-yellow-300 border-2 border-yellow-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-yellow-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full">
+                Stop Pomodoro Timer <i class="fa-solid fa-circle-stop"></i>
+            </button>
+        </div>
+    ` 
 
 }
 
@@ -443,14 +439,93 @@ const countBreak = () => {
     }
 }
 
-setCustomPomodoroBtn.addEventListener("click", () => setCustomPomodoro())
-
 const setCustomPomodoro = () => {
     const pomoDuration = parseInt(document.getElementById("pomo-custom-minites").value);
     
     setPomoTime(pomoDuration)
 }
 
+const navBtnTimer = document.getElementById("nav-btn-timer")
+
+navBtnTimer.addEventListener("click", () => timerWrapper.classList.remove("hidden"))
+
+
+customPomodoroBtns.innerHTML = localStorage.getItem("currentTask") ? `
+    <div class="col-span-full">
+        <button onclick="clearPomodoro()" class="bg-yellow-300 border-2 border-yellow-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-yellow-500 text-yellow-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full">
+            Stop Pomodoro Timer <i class="fa-solid fa-circle-stop"></i>
+        </button>
+    </div>
+` 
+: 
+`
+<div class="col-span-3 grid grid-cols-3 gap-2">
+    <div class="col-span-full">
+        <button id="set-default-timer" class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full" onclick="setPomoTime(5)">
+            Default 25 mins <i class="fa-solid fa-stopwatch"></i>
+        </button>
+    </div>
+    <div class="col-span-full flex justify-center items-center">
+        <div class="line w-20 h-0.5 bg-[#D9D9D9]"></div>
+        <div class="mx-4 text-[#D9D9D9]">OR</div>
+        <div class="line w-20 h-0.5 bg-[#D9D9D9]"></div>
+    </div>
+    <div class="col-span-full grid grid-cols-3 gap-2">
+        <div class="col-span-2">
+            <button id="set-custom-pomodoro" class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full" onclick="setCustomPomodoro()">
+                Set Custom <i class="fa-solid fa-pen"></i>
+            </button>
+        </div>
+        <div class="col-span-1">
+            <input type="text" class="w-full border border-[#d9d9d9] text-sm py-1 px-2 rounded-md" id="pomo-custom-minites" placeholder="how long" />
+        </div>
+    </div>
+</div>
+
+<div class="col-span-1">
+    <select id="break-mins" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="5">short</option>
+        <option value="15">long</option>
+    </select>
+</div>
+`;
+
+const clearPomodoro = () => {
+    clearInterval(setPomodoroTimer)
+    clearInterval(setBreakTimer)
+    localStorage.removeItem("currentTask");
+    customPomodoroBtns.innerHTML = `
+        <div class="col-span-3 grid grid-cols-3 gap-2">
+            <div class="col-span-full">
+                <button id="set-default-timer" class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full" onclick="setPomoTime(5)">
+                    Default 25 mins <i class="fa-solid fa-stopwatch"></i>
+                </button>
+            </div>
+            <div class="col-span-full flex justify-center items-center">
+                <div class="line w-20 h-0.5 bg-[#D9D9D9]"></div>
+                <div class="mx-4 text-[#D9D9D9]">OR</div>
+                <div class="line w-20 h-0.5 bg-[#D9D9D9]"></div>
+            </div>
+            <div class="col-span-full grid grid-cols-3 gap-2">
+                <div class="col-span-2">
+                    <button id="set-custom-pomodoro" class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full">
+                        Set Custom <i class="fa-solid fa-pen"></i>
+                    </button>
+                </div>
+                <div class="col-span-1">
+                    <input type="text" class="w-full border border-[#d9d9d9] text-sm py-1 px-2 rounded-md" id="pomo-custom-minites" placeholder="how long" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-span-1">
+            <select id="break-mins" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="5">short</option>
+                <option value="15">long</option>
+            </select>
+        </div>
+    `;
+}
 
 
 
