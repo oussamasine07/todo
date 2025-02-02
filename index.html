@@ -39,9 +39,48 @@
                 <div class="counter text-[#FB3640] font-bold">
                     <span id="min">24</span>:<span id="sec">57</span>
                 </div>
-                <button class="ml-3 border w-8 h-8 flex justify-center items-center bg-gray-300 rounded-full cursor-pointer">
+                <!-- <button class="ml-3 border w-8 h-8 flex justify-center items-center bg-gray-300 rounded-full cursor-pointer">
                     <i class="fa-solid fa-chevron-left text-sm"></i>
-                </button>
+                </button> -->
+
+                <div class="w-1/3 bg-white rounded-lg border border-[#D9D9D9] p-3 absolute top-full left-1/2 -translate-x-1/2 z-1000 hidden" id="timer-wrapper">
+                    <div class="timer text-5xl font-bold text-center text-red-400">
+                        <span id="min-timer">00</span>:<span id="sec-timer">00</span>
+                    </div>
+                    <div class="timer-current-task my-6 text-2xl text-center" id="timer-task-name">finish UI/UX design</div>
+
+                    <div class="grid grid-cols-4 gap-2">
+                        <div class="col-span-3 grid grid-cols-3 gap-2">
+                            <div class="col-span-full">
+                                <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full">
+                                    Default 25 mins <i class="fa-solid fa-stopwatch"></i>
+                                </button>
+                            </div>
+                            <div class="col-span-full flex justify-center items-center">
+                                <div class="line w-20 h-0.5 bg-[#D9D9D9]"></div>
+                                <div class="mx-4 text-[#D9D9D9]">OR</div>
+                                <div class="line w-20 h-0.5 bg-[#D9D9D9]"></div>
+                            </div>
+                            <div class="col-span-full grid grid-cols-3 gap-2">
+                                <div class="col-span-2">
+                                    <button class="bg-blue-300 border-2 border-blue-300 transition ease-in-out delay-150 hover:bg-transparent hover:text-blue-500 text-blue-950 font-bold text-sm px-2 py-1 md:px-2 rounded-md cursor-pointer w-full" data-pomo-form="pomo-form">
+                                        Set Custom <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                </div>
+                                <div class="col-span-1">
+                                    <input type="text" class="w-full border border-[#d9d9d9] text-sm py-1 px-2 rounded-md" id="pomo-minites-${id}" placeholder="how long" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1">
+                            <select id="break-mins" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-1 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="short">short</option>
+                                <option value="long">long</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
 
